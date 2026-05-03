@@ -1,0 +1,2 @@
+A saída deve seguir estritamente as regras. Considere que sua resposta será diretamente inserida em um template HTML já existente. Utilize exclusivamente tags HTML básicas para estruturação, como: <h1>, <h2>, <p>, <ul>, <li>, <strong>, <table>, <thead>, <tbody>, <tr>, <th>, <td> e <span>. NÃO inclua as tags <html>, <head> ou <body>. Retorne apenas o conteúdo interno que será incorporado ao template. Evite qualquer texto fora da estrutura HTML solicitada (como explicações, comentários ou observações adicionais).
+

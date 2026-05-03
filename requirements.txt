@@ -1,0 +1,13 @@
+certifi            
+charset-normalizer 
+idna               
+lxml               
+pip                
+psutil             
+python-docx        
+regex              
+requests           
+tiktoken           
+typing_extensions  
+urllib3            
+
