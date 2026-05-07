@@ -251,6 +251,12 @@
             font-size: 0.95rem;
             line-height: 1.6;
             box-shadow: var(--shadow-sm);
+            white-space: pre-wrap;
+        }
+        .assistant-message .message-bubble {
+            font-family: 'Source Code Pro', monospace;
+            background: #fdfdfd;
+            font-size: 0.85rem;
         }
         .user-message .message-bubble {
             background: var(--user-msg-bg);
@@ -517,14 +523,33 @@
                 wrapper.className = `message-wrapper ${msg.role === 'user' ? 'user-message' : 'assistant-message'}`;
                 wrapper.innerHTML = `
                     <div class="message-role"><span>${msg.role === 'user' ? 'Você' : 'Assistente'}</span></div>
-                    <div class="message-bubble">${msg.content}</div>
                 `;
+                const bubble = document.createElement('div');
+                bubble.className = 'message-bubble';
                 if(msg.role === 'assistant') {
+                    bubble.textContent = msg.content;
+                } else {
+                    bubble.textContent = msg.content;
+                }
+                wrapper.appendChild(bubble);
+                if(msg.role === 'assistant') {
+                    const copyBtn = document.createElement('button');
+                    copyBtn.className = 'revise-btn';
+                    copyBtn.innerHTML = '📋 Copiar';
+                    copyBtn.onclick = () => {
+                        navigator.clipboard.writeText(msg.content);
+                        copyBtn.innerText = '✅ Copiado';
+                        setTimeout(() => copyBtn.innerText = '📋 Copiar', 2000);
+                    };
+
                     const reviseBtn = document.createElement('button');
                     reviseBtn.className = 'revise-btn';
                     reviseBtn.innerHTML = '✎ Revisar';
                     reviseBtn.onclick = () => reviseMessage(msg.content);
-                    wrapper.querySelector('.message-role').appendChild(reviseBtn);
+
+                    const roleHeader = wrapper.querySelector('.message-role');
+                    roleHeader.appendChild(copyBtn);
+                    roleHeader.appendChild(reviseBtn);
                 }
                 messageContainer.appendChild(wrapper);
             });
@@ -635,7 +660,7 @@
             for(const msg of historyMessages) {
                 conv += `${msg.role === 'user' ? 'Usuário' : 'Assistente'}: ${msg.content}\n`;
             }
-            const system = "Você é um assistente especialista. Responda em HTML puro e bem formatado (tags semânticas, sem markdown).";
+            const system = "Você é um assistente especialista. Forneça APENAS o código ou texto solicitado, sem blocos de markdown (```), sem explicações e sem tags de estilo que possam afetar a página. O objetivo é que o usuário possa copiar e colar o trecho diretamente.";
             return `${system}\n\n${context}\n${conv}\nUsuário: ${userMessage}\nAssistente:`;
         }
 
@@ -665,7 +690,10 @@
                         if(chunk.response) {
                             accumulated += chunk.response;
                             if(currentStreamBubble) {
-                                currentStreamBubble.innerHTML = accumulated + `<span class="streaming-cursor"></span>`;
+                                currentStreamBubble.textContent = accumulated;
+                                const cursor = document.createElement('span');
+                                cursor.className = 'streaming-cursor';
+                                currentStreamBubble.appendChild(cursor);
                                 scrollToBottom();
                             }
                         }
@@ -737,7 +765,7 @@
             if(isGenerating) { showError("Aguarde a geração atual."); return; }
             const selectedModel = modelSelector.value;
             if(!selectedModel) return;
-            const revisePrompt = `A seguir está uma resposta. Revise e melhore, mantendo o mesmo estilo HTML. Corrija erros e melhore a clareza.\n\nResposta original:\n${originalContent}\n\nNova versão revisada:`;
+            const revisePrompt = `Revise o seguinte conteúdo. Retorne APENAS a versão melhorada, sem blocos de markdown e sem explicações.\n\nConteúdo original:\n${originalContent}\n\nNova versão revisada:`;
             
             isGenerating = true;
             sendBtn.disabled = true;

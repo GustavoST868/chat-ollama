@@ -53,19 +53,26 @@ body {{ font-family: monospace; max-width: 900px; margin: 2rem auto; padding: 1r
             self.end_headers()
 
 def start():
-    server = HTTPServer((HOST, PORT), Handler)
+    port = PORT
+    server = None
+    while server is None:
+        try:
+            server = HTTPServer((HOST, port), Handler)
+        except OSError:
+            port += 1
+            
     server.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    print(f"✅ Servidor rodando em http://{HOST}:{PORT}")
+    print(f"✅ Servidor rodando em http://{HOST}:{port}")
     print(f"📁 Chats serão salvos em: {CHATS_DIR}")
-    server.serve_forever()
-
-if __name__ == "__main__":
-    thread = threading.Thread(target=start, daemon=True)
-    thread.start()
-    webbrowser.open(f"http://{HOST}:{PORT}")
-    print("🟢 Pressione CTRL+C para encerrar.")
+    
+    # Abre o navegador na porta correta
+    threading.Timer(0.5, lambda: webbrowser.open(f"http://{HOST}:{port}")).start()
+    
     try:
-        while True:
-            pass
+        server.serve_forever()
     except KeyboardInterrupt:
         print("\n🔴 Servidor encerrado.")
+
+if __name__ == "__main__":
+    print("🟢 Pressione CTRL+C para encerrar.")
+    start()
