@@ -106,6 +106,31 @@
             background: var(--hover-bg);
         }
 
+        .voice-call-btn {
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+            transition: all 0.2s ease;
+        }
+        .voice-call-btn:hover {
+            opacity: 0.8;
+            transform: translateY(-1px);
+        }
+        .voice-call-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
         .chats-header {
             font-size: 0.7rem;
             font-weight: 600;
@@ -254,9 +279,10 @@
             white-space: pre-wrap;
         }
         .assistant-message .message-bubble {
-            font-family: 'Source Code Pro', monospace;
-            background: #fdfdfd;
-            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            font-size: 0.95rem;
+            border-left: 4px solid var(--accent);
         }
         .user-message .message-bubble {
             background: var(--user-msg-bg);
@@ -305,6 +331,107 @@
             animation: blink 1s step-end infinite;
         }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+        /* COMPONENTES CUSTOMIZADOS PARA O MODELO */
+        .message-bubble table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.85rem;
+            border: 1px solid var(--chat-border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .message-bubble table.data-table th {
+            background: #f8f9fa;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--chat-border);
+        }
+        .message-bubble table.data-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--chat-border);
+        }
+        .message-bubble table.data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .message-bubble .info-card {
+            background: #f1f3f5;
+            border-left: 4px solid var(--accent);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+        .message-bubble .info-card h4 {
+            margin-top: 0;
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .message-bubble .highlight-text {
+            background: #fff3bf;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .message-bubble .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .message-bubble .stat-item {
+            background: white;
+            border: 1px solid var(--chat-border);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .message-bubble .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: block;
+        }
+        .message-bubble .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .message-bubble .mini-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            height: 100px;
+            padding: 10px;
+            background: #fafafa;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+        .message-bubble .chart-bar {
+            background: var(--accent);
+            width: 24px;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+        }
+        .message-bubble .chart-bar:hover::after {
+            content: attr(data-value);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            background: black;
+            color: white;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
 
         .error-message {
             margin-top: 20px;
@@ -403,6 +530,108 @@
             animation: spin 0.6s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* VOICE CALL OVERLAY */
+        .call-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .call-overlay.active {
+            display: flex;
+        }
+        .call-status {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: #ccc;
+        }
+        .call-visualizer {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pulse-circle {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: pulse-ring 2s infinite ease-out;
+        }
+        .avatar-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            box-shadow: 0 0 30px rgba(255,255,255,0.2);
+        }
+        .avatar-circle svg {
+            width: 50px;
+            height: 50px;
+            color: black;
+        }
+        .call-transcription {
+            margin-top: 40px;
+            max-width: 80%;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.4;
+            min-height: 3em;
+            color: #eee;
+        }
+        .call-controls {
+            margin-top: 60px;
+            display: flex;
+            gap: 24px;
+        }
+        .call-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .call-btn:hover { transform: scale(1.1); }
+        .end-call-btn { background: #ff3b30; color: white; }
+        .mute-btn { background: rgba(255,255,255,0.1); color: white; }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
+
+        .speaking .pulse-circle {
+            background: rgba(0, 122, 255, 0.3);
+            animation: pulse-ring 1s infinite ease-out;
+        }
+        .listening .pulse-circle {
+            background: rgba(255, 255, 255, 0.3);
+            animation: pulse-ring 1.5s infinite ease-out;
+        }
     </style>
 </head>
 <body>
@@ -414,8 +643,47 @@
         <button class="new-chat" id="newChatBtn">+ Novo chat</button>
         <div class="chats-header">Conversas</div>
         <div class="chats-list" id="chatsList"></div>
+        <button class="voice-call-btn" id="startCallBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.28-2.28a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            Chamada de Voz
+        </button>
         <button class="save-chat-btn" id="saveChatBtn">💾 Salvar conversa</button>
+        <div class="context-section" style="margin-top: 20px; border-top: 1px solid var(--sidebar-border); padding-top: 20px;">
+            <div class="chats-header">Contexto (PDF)</div>
+            <div id="contextFilesList" style="font-size: 0.8rem; color: var(--text-secondary); padding-left: 8px; display: flex; flex-direction: column; gap: 4px;">
+                <span style="font-style: italic;">Nenhum PDF na pasta /contexto</span>
+            </div>
+            <button class="new-chat" id="refreshContextBtn" style="margin-top: 10px; width: 100%; justify-content: center;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                Atualizar Contexto
+            </button>
+        </div>
     </aside>
+
+    <div class="call-overlay" id="callOverlay">
+        <div class="call-status" id="callStatus">Iniciando chamada...</div>
+        <div class="call-visualizer" id="callVisualizer">
+            <div class="pulse-circle"></div>
+            <div class="avatar-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line><line x1="8" y1="22" x2="16" y2="22"></line></svg>
+            </div>
+        </div>
+        <div class="call-transcription" id="callTranscription"></div>
+        
+        <div style="margin-top: 20px; width: 250px;">
+            <label style="font-size: 0.7rem; color: #888; display: block; margin-bottom: 5px;">Escolha a voz:</label>
+            <select id="voiceSelector" style="width: 100%; background: #222; color: white; border: 1px solid #444; padding: 5px; border-radius: 5px; font-size: 0.8rem;"></select>
+        </div>
+
+        <div class="call-controls">
+            <button class="call-btn mute-btn" id="muteCallBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M12 1a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line><line x1="8" y1="22" x2="16" y2="22"></line></svg>
+            </button>
+            <button class="call-btn end-call-btn" id="endCallBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 .45-2.11 12.84 12.84 0 0 0-.7-2.81 2 2 0 0 1 1.72-2h3a2 2 0 0 1 2 2.18 19.79 19.79 0 0 1-3.07 8.63z"></path></svg>
+            </button>
+        </div>
+    </div>
 
     <main class="main">
         <div class="topbar">
@@ -437,11 +705,7 @@
             <div class="input-card">
                 <textarea id="promptInput" placeholder="Digite sua mensagem…"></textarea>
                 <div class="actions">
-                    <div class="file-group">
-                        <label class="file-btn" for="contextFiles">📎</label>
-                        <input type="file" id="contextFiles" multiple style="display: none;">
-                    </div>
-                    <div style="display: flex; gap: 8px;">
+                    <div style="display: flex; gap: 8px; margin-left: auto;">
                         <button id="stopGenBtn" class="stop-generation" disabled>x</button>
                         <button id="sendRequestBtn" class="send-btn">↑</button>
                     </div>
@@ -464,23 +728,67 @@
         const sendBtn = document.getElementById("sendRequestBtn");
         const stopBtn = document.getElementById("stopGenBtn");
         const messageContainer = document.getElementById("messageContainer");
-        const fileInput = document.getElementById("contextFiles");
         const errorContainer = document.getElementById("errorContainer");
         const modelSelector = document.getElementById("modelSelector");
         const newChatBtn = document.getElementById("newChatBtn");
         const saveChatBtn = document.getElementById("saveChatBtn");
         const statusSpan = document.getElementById("statusInfo");
         const chatsListDiv = document.getElementById("chatsList");
+        const startCallBtn = document.getElementById("startCallBtn");
+        const endCallBtn = document.getElementById("endCallBtn");
+        const callOverlay = document.getElementById("callOverlay");
+        const callStatus = document.getElementById("callStatus");
+        const callTranscription = document.getElementById("callTranscription");
+        const callVisualizer = document.getElementById("callVisualizer");
+        const voiceSelector = document.getElementById("voiceSelector");
+
+        // Estado
+        let isCallActive = false;
+        let recognition = null;
+        let synthesis = window.speechSynthesis;
+        let callLanguage = 'pt-BR';
+        let selectedVoice = null;
+        let voices = [];
 
         // Estado
         let currentChatId = null;
         let chats = {};
-        let attachedFiles = [];      // array de {name, content}
         let currentAbortController = null;
         let isGenerating = false;
         let currentStreamMessageDiv = null;
         let currentStreamBubble = null;
         let currentStreamText = "";
+        let globalContext = "";
+        let contextFiles = [];
+
+        // ---------- Context Management ----------
+        async function fetchContext() {
+            try {
+                const res = await fetch("/get-context");
+                const data = await res.json();
+                globalContext = data.context || "";
+                contextFiles = data.files || [];
+                renderContextFiles();
+            } catch (e) {
+                console.error("Erro ao buscar contexto:", e);
+            }
+        }
+
+        function renderContextFiles() {
+            const listEl = document.getElementById("contextFilesList");
+            if (contextFiles.length === 0) {
+                listEl.innerHTML = '<span style="font-style: italic;">Nenhum PDF na pasta /contexto</span>';
+            } else {
+                listEl.innerHTML = contextFiles.map(f => `
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        <span>${escapeHtml(f)}</span>
+                    </div>
+                `).join("");
+            }
+        }
+
+        document.getElementById("refreshContextBtn").addEventListener("click", fetchContext);
 
         // ---------- Chat storage / UI ----------
         function loadChatsFromStorage() {
@@ -505,7 +813,6 @@
             currentChatId = chatId;
             renderChatMessages(chatId);
             renderChatsList();
-            attachedFiles = [];
             promptEl.value = "";
             clearError();
         }
@@ -527,7 +834,7 @@
                 const bubble = document.createElement('div');
                 bubble.className = 'message-bubble';
                 if(msg.role === 'assistant') {
-                    bubble.textContent = msg.content;
+                    bubble.innerHTML = msg.content;
                 } else {
                     bubble.textContent = msg.content;
                 }
@@ -628,39 +935,46 @@
         function clearError() { errorContainer.innerHTML = ""; }
         function scrollToBottom() { const ca = document.getElementById('chatArea'); ca.scrollTop = ca.scrollHeight; }
 
-        // ---------- Arquivos (apenas botão, sem lista) ----------
-        fileInput.addEventListener("change", async (e) => {
-            const files = Array.from(e.target.files);
-            for(const file of files) {
-                try {
-                    const content = await new Promise((resolve, reject) => {
-                        const reader = new FileReader();
-                        reader.onload = () => resolve(reader.result);
-                        reader.onerror = reject;
-                        reader.readAsText(file, "UTF-8");
-                    });
-                    attachedFiles.push({ name: file.name, content });
-                } catch { showError(`Erro ao ler ${file.name}`); }
-            }
-            fileInput.value = "";  // permite anexar novamente os mesmos arquivos
-            clearError();
-            statusSpan.innerText = `${attachedFiles.length} arquivo(s) anexado(s) (serão usados no próximo envio)`;
-            setTimeout(() => { if(statusSpan.innerText.includes("anexado")) statusSpan.innerText = ""; }, 3000);
-        });
-
         // ---------- Prompt com histórico + arquivos ----------
         function buildFullPromptWithHistory(userMessage, historyMessages) {
             let context = "";
-            if(attachedFiles.length) {
-                context += "\n/// ARQUIVOS ANEXADOS ///\n";
-                attachedFiles.forEach(f => context += `[${f.name}]\n${f.content}\n`);
-                context += "\n/// FIM ///\n\n";
+            
+            // Contexto dos PDFs na pasta /contexto
+            if(globalContext) {
+                context += "\n/// CONTEXTO DOS PDFs NA PASTA /CONTEXTO ///\n";
+                context += globalContext;
+                context += "\n/// FIM DO CONTEXTO DOS PDFs ///\n\n";
             }
+
             let conv = "";
             for(const msg of historyMessages) {
                 conv += `${msg.role === 'user' ? 'Usuário' : 'Assistente'}: ${msg.content}\n`;
             }
-            const system = "Você é um assistente especialista. Forneça APENAS o código ou texto solicitado, sem blocos de markdown (```), sem explicações e sem tags de estilo que possam afetar a página. O objetivo é que o usuário possa copiar e colar o trecho diretamente.";
+
+            let system = "Você é um assistente virtual prestativo. ";
+            if (globalContext) {
+                system += "Responda às perguntas do usuário baseando-se EXCLUSIVAMENTE nas informações contidas nos documentos fornecidos acima. ";
+            }
+
+            system += "\nREGRAS OBRIGATÓRIAS DE FORMATAÇÃO:\n";
+            system += "1. NUNCA use markdown (como **, #, -, etc.).\n";
+            system += "2. Forneça a resposta APENAS em HTML puro.\n";
+            system += "3. Toda a sua resposta textual base deve estar envolvida por tags <p></p>.\n";
+            system += "4. Use os seguintes COMPONENTES HTML para formatar sua resposta:\n";
+            system += "   - TABELAS: Use <table class='data-table'><thead><tr><th>Coluna</th></tr></thead><tbody><tr><td>Dado</td></tr></tbody></table>\n";
+            system += "   - DESTAQUES: Use <div class='info-card'><h4>Título</h4>Conteúdo</div> para informações importantes.\n";
+            system += "   - TEXTO DESTACADO: Use <span class='highlight-text'>texto</span> para termos importantes no meio do texto.\n";
+            system += "   - ESTATÍSTICAS: Use <div class='stat-grid'><div class='stat-item'><span class='stat-value'>Valor</span><span class='stat-label'>Rótulo</span></div></div>\n";
+            system += "   - MINI GRÁFICO: Use <div class='mini-chart'><div class='chart-bar' style='height: 70%' data-value='70%'></div></div>\n";
+            system += "5. IMPORTANTE: Não use <html>, <body>, <head> ou <style>. Sua resposta será inserida em um <div>. Use APENAS as tags permitidas acima e tags básicas (p, ul, li, strong, em, br).\n";
+
+            if (globalContext) {
+                system += "6. Sempre cite explicitamente o número da página onde encontrou a informação.\n";
+                system += "7. Se a informação não estiver nos documentos, diga educadamente que não possui essa informação.\n";
+                system += "8. O trecho do documento que você usar para responder DEVE ESTAR EM NEGRITO (use APENAS a tag <strong>trecho</strong>).\n";
+                system += "9. AO FINAL de cada resposta, coloque o trecho IDENTICO do texto original junto com o número da página de onde foi retirado, tudo dentro de uma tag <strong>trecho (Pág. X)</strong>.\n";
+            }
+
             return `${system}\n\n${context}\n${conv}\nUsuário: ${userMessage}\nAssistente:`;
         }
 
@@ -690,10 +1004,7 @@
                         if(chunk.response) {
                             accumulated += chunk.response;
                             if(currentStreamBubble) {
-                                currentStreamBubble.textContent = accumulated;
-                                const cursor = document.createElement('span');
-                                cursor.className = 'streaming-cursor';
-                                currentStreamBubble.appendChild(cursor);
+                                currentStreamBubble.innerHTML = accumulated + '<span class="streaming-cursor"></span>';
                                 scrollToBottom();
                             }
                         }
@@ -708,7 +1019,7 @@
             if(isGenerating) { showError("Aguarde a resposta atual."); return; }
             clearError();
             const userMsg = promptEl.value.trim();
-            if(!userMsg && attachedFiles.length === 0) { showError("Digite uma mensagem ou anexe arquivos."); return; }
+            if(!userMsg) { showError("Digite uma mensagem."); return; }
             const selectedModel = modelSelector.value;
             if(!selectedModel || selectedModel.includes("Nenhum")) { showError("Selecione um modelo."); return; }
             if(!currentChatId) currentChatId = createNewChat();
@@ -739,8 +1050,6 @@
                 if(currentStreamMessageDiv) currentStreamMessageDiv.remove();
                 updateLastAssistantMessage(finalResponse);
                 statusSpan.innerText = "✓ resposta concluída";
-                // limpar arquivos após envio
-                attachedFiles = [];
             } catch(err) {
                 if(err.name === 'AbortError') {
                     statusSpan.innerText = "X Geração cancelada";
@@ -765,7 +1074,7 @@
             if(isGenerating) { showError("Aguarde a geração atual."); return; }
             const selectedModel = modelSelector.value;
             if(!selectedModel) return;
-            const revisePrompt = `Revise o seguinte conteúdo. Retorne APENAS a versão melhorada, sem blocos de markdown e sem explicações.\n\nConteúdo original:\n${originalContent}\n\nNova versão revisada:`;
+            const revisePrompt = `Revise o seguinte conteúdo. Retorne APENAS a versão melhorada em HTML PURO, sem blocos de markdown e sem explicações. Use tags como <p>, <strong>, etc. para formatar.\n\nConteúdo original:\n${originalContent}\n\nNova versão revisada em HTML:`;
             
             isGenerating = true;
             sendBtn.disabled = true;
@@ -828,16 +1137,202 @@
             } catch(e) { modelSelector.innerHTML = '<option>Erro</option>'; }
         }
 
+        // ---------- Voice Call Logic ----------
+        function initSpeechRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if(!SpeechRecognition) {
+                alert("Seu navegador não suporta reconhecimento de voz.");
+                return null;
+            }
+            const rec = new SpeechRecognition();
+            rec.lang = callLanguage;
+            rec.continuous = false;
+            rec.interimResults = true;
+
+            rec.onstart = () => {
+                callStatus.innerText = "Ouvindo...";
+                callVisualizer.classList.add('listening');
+                callVisualizer.classList.remove('speaking');
+            };
+
+            rec.onresult = (event) => {
+                let interimTranscript = '';
+                let finalTranscript = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) finalTranscript += event.results[i][0].transcript;
+                    else interimTranscript += event.results[i][0].transcript;
+                }
+                callTranscription.innerText = finalTranscript || interimTranscript;
+            };
+
+            rec.onend = async () => {
+                if(!isCallActive || isMuted) return;
+                const text = callTranscription.innerText.trim();
+                if(text) {
+                    await handleVoiceInput(text);
+                } else {
+                    // Se não ouviu nada, volta a ouvir após um pequeno delay
+                    setTimeout(() => { if(isCallActive && !isMuted && !synthesis.speaking) try { rec.start(); } catch(e){} }, 400);
+                }
+            };
+
+            rec.onerror = (event) => {
+                console.error("Speech error", event.error);
+                if(isCallActive) setTimeout(() => { try { rec.start(); } catch(e){} }, 1000);
+            };
+
+            return rec;
+        }
+
+        async function handleVoiceInput(text) {
+            callStatus.innerText = "Processando...";
+            callVisualizer.classList.remove('listening');
+            
+            // Adiciona ao chat (silenciosamente ou não)
+            addMessageToCurrentChat('user', text);
+            
+            const selectedModel = modelSelector.value;
+            const chat = chats[currentChatId];
+            const historyMessages = chat.messages.slice(0, -1);
+            const fullPrompt = buildFullPromptWithHistory(text, historyMessages);
+
+            try {
+                const response = await sendStreamingRequest(selectedModel, fullPrompt);
+                updateLastAssistantMessage(response);
+                speak(response);
+            } catch(err) {
+                console.error(err);
+                callStatus.innerText = "Erro na resposta.";
+                if(isCallActive) setTimeout(() => recognition.start(), 2000);
+            }
+        }
+
+        function speak(text) {
+            if(!isCallActive) return;
+            
+            // Remove markdown e caracteres especiais para uma leitura melhor
+            const cleanText = text.replace(/```[\s\S]*?```/g, 'Código.')
+                                 .replace(/[*_#]/g, '')
+                                 .trim();
+
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            } else {
+                utterance.lang = callLanguage;
+            }
+
+            utterance.rate = 0.95; // Ligeiramente mais lento soa mais natural
+            utterance.pitch = 1.0;
+
+            utterance.onstart = () => {
+                callStatus.innerText = "Assistente falando...";
+                callVisualizer.classList.add('speaking');
+                callVisualizer.classList.remove('listening');
+            };
+
+            utterance.onend = () => {
+                if(isCallActive && !isMuted) {
+                    callTranscription.innerText = "";
+                    try { recognition.start(); } catch(e){}
+                }
+            };
+
+            synthesis.speak(utterance);
+        }
+
+        function startCall() {
+            isCallActive = true;
+            callOverlay.classList.add('active');
+            callTranscription.innerText = "";
+            recognition = initSpeechRecognition();
+            if(recognition) recognition.start();
+        }
+
+        function endCall() {
+            isCallActive = false;
+            if(recognition) {
+                try { recognition.stop(); } catch(e){}
+                recognition = null;
+            }
+            synthesis.cancel();
+            callOverlay.classList.remove('active');
+        }
+
+        // ---------- Voice Management ----------
+        function updateVoices() {
+            voices = synthesis.getVoices();
+            voiceSelector.innerHTML = "";
+            
+            // Filtra vozes em português ou do Google (que costumam ser melhores)
+            const ptVoices = voices.filter(v => v.lang.includes('pt') || v.lang.includes('PT'));
+            
+            if (ptVoices.length === 0) {
+                const opt = document.createElement('option');
+                opt.textContent = "Nenhuma voz PT encontrada";
+                voiceSelector.appendChild(opt);
+                return;
+            }
+
+            ptVoices.forEach(voice => {
+                const option = document.createElement('option');
+                option.textContent = `${voice.name} (${voice.lang})`;
+                option.value = voice.name;
+                voiceSelector.appendChild(option);
+            });
+
+            // Tenta selecionar uma voz do Google por padrão (costumam ser as melhores no Chrome)
+            const googlePt = ptVoices.find(v => v.name.includes('Google') && v.lang.includes('pt-BR'));
+            const defaultVoice = googlePt || ptVoices[0];
+            
+            if (defaultVoice) {
+                voiceSelector.value = defaultVoice.name;
+                selectedVoice = defaultVoice;
+            }
+        }
+
+        // O evento voiceschanged é necessário porque as vozes são carregadas de forma assíncrona
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = updateVoices;
+        }
+
+        voiceSelector.addEventListener('change', () => {
+            selectedVoice = voices.find(v => v.name === voiceSelector.value);
+        });
+
+        let isMuted = false;
+        function toggleMute() {
+            isMuted = !isMuted;
+            const muteBtn = document.getElementById("muteCallBtn");
+            if(isMuted) {
+                muteBtn.style.background = "#ff3b30";
+                if(recognition) try { recognition.stop(); } catch(e){}
+                callStatus.innerText = "Microfone mudo";
+            } else {
+                muteBtn.style.background = "rgba(255,255,255,0.1)";
+                if(isCallActive && !synthesis.speaking) recognition.start();
+                callStatus.innerText = "Ouvindo...";
+            }
+        }
+
+        // Modificar o onend do recognition para respeitar o mute
+        // (Já está implícito pois se não dermos start() ele para)
+
         // Inicialização
         loadChatsFromStorage();
         if(Object.keys(chats).length === 0) loadChat(createNewChat());
         else loadChat(Object.keys(chats)[0]);
         loadModels();
+        fetchContext();
 
         sendBtn.addEventListener("click", sendPrompt);
         stopBtn.addEventListener("click", stopGeneration);
         newChatBtn.addEventListener("click", newChat);
         saveChatBtn.addEventListener("click", saveChatToServer);
+        startCallBtn.addEventListener("click", startCall);
+        endCallBtn.addEventListener("click", endCall);
+        document.getElementById("muteCallBtn").addEventListener("click", toggleMute);
         promptEl.addEventListener("keydown", (e) => { if(e.key === "Enter" && !e.shiftKey && !isGenerating) { e.preventDefault(); sendPrompt(); } });
     })();
 </script>

@@ -5,14 +5,50 @@ import os
 import json
 from datetime import datetime
 import socket
+from pypdf import PdfReader
 
 HOST = "localhost"
 PORT = 8081  # altere para outra porta se a 8080 estiver ocupada
 DIRECTORY = os.getcwd()
 CHATS_DIR = os.path.join(DIRECTORY, "chats")
+CONTEXT_DIR = os.path.join(DIRECTORY, "contexto")
 os.makedirs(CHATS_DIR, exist_ok=True)
+os.makedirs(CONTEXT_DIR, exist_ok=True)
+
+def extract_text_from_pdfs():
+    text_content = ""
+    files_processed = []
+    if not os.path.exists(CONTEXT_DIR):
+        return "", []
+    
+    for filename in os.listdir(CONTEXT_DIR):
+        if filename.lower().endswith(".pdf"):
+            filepath = os.path.join(CONTEXT_DIR, filename)
+            try:
+                reader = PdfReader(filepath)
+                file_text = f"\n--- INÍCIO DO ARQUIVO: {filename} ---\n"
+                for i, page in enumerate(reader.pages):
+                    page_num = i + 1
+                    file_text += f"\n[PÁGINA {page_num}]\n"
+                    file_text += (page.extract_text() or "") + "\n"
+                file_text += f"--- FIM DO ARQUIVO: {filename} ---\n"
+                text_content += file_text
+                files_processed.append(filename)
+            except Exception as e:
+                print(f"Erro ao ler {filename}: {e}")
+    return text_content, files_processed
 
 class Handler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == "/get-context":
+            text, files = extract_text_from_pdfs()
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({"context": text, "files": files}).encode())
+        else:
+            super().do_GET()
+
     def do_POST(self):
         if self.path == "/save-chat":
             length = int(self.headers['Content-Length'])
@@ -64,6 +100,7 @@ def start():
     server.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     print(f"✅ Servidor rodando em http://{HOST}:{port}")
     print(f"📁 Chats serão salvos em: {CHATS_DIR}")
+    print(f"📂 Pasta de contexto: {CONTEXT_DIR}")
     
     # Abre o navegador na porta correta
     threading.Timer(0.5, lambda: webbrowser.open(f"http://{HOST}:{port}")).start()
