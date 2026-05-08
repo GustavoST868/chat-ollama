@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Ollama · Overleaf clean</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -26,7 +29,7 @@
             --text-secondary: #6c757d;
             --accent: #000000;
             --hover-bg: #f8f9fa;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.03);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.03);
             --radius-card: 12px;
         }
 
@@ -42,10 +45,12 @@
             width: 8px;
             height: 8px;
         }
+
         ::-webkit-scrollbar-track {
             background: #f1f3f5;
             border-radius: 10px;
         }
+
         ::-webkit-scrollbar-thumb {
             background: #ced4da;
             border-radius: 10px;
@@ -76,6 +81,7 @@
             padding-bottom: 12px;
             border-bottom: 1px solid var(--sidebar-border);
         }
+
         .logo {
             font-size: 1.3rem;
             font-weight: 600;
@@ -84,6 +90,7 @@
             padding: 4px 10px;
             border-radius: 8px;
         }
+
         .logo small {
             font-size: 0.65rem;
             font-weight: 400;
@@ -102,6 +109,7 @@
             align-items: center;
             gap: 8px;
         }
+
         .new-chat:hover {
             background: var(--hover-bg);
         }
@@ -122,10 +130,12 @@
             margin-top: 8px;
             transition: all 0.2s ease;
         }
+
         .voice-call-btn:hover {
             opacity: 0.8;
             transform: translateY(-1px);
         }
+
         .voice-call-btn svg {
             width: 16px;
             height: 16px;
@@ -156,14 +166,17 @@
             font-size: 0.85rem;
             border: 1px solid transparent;
         }
+
         .chat-item:hover {
             background: var(--hover-bg);
             border-color: var(--sidebar-border);
         }
+
         .chat-item.active {
             background: #f1f3f5;
             border-color: #dee2e6;
         }
+
         .chat-title {
             flex: 1;
             white-space: nowrap;
@@ -171,6 +184,7 @@
             text-overflow: ellipsis;
             font-weight: 500;
         }
+
         .delete-chat {
             background: none;
             border: none;
@@ -179,9 +193,11 @@
             color: #adb5bd;
             visibility: hidden;
         }
+
         .chat-item:hover .delete-chat {
             visibility: visible;
         }
+
         .delete-chat:hover {
             color: #dc3545;
         }
@@ -200,6 +216,7 @@
             justify-content: center;
             gap: 8px;
         }
+
         .save-chat-btn:hover {
             background: var(--hover-bg);
         }
@@ -222,15 +239,18 @@
             justify-content: space-between;
             background: white;
         }
+
         .model-name {
             font-weight: 600;
             font-size: 0.85rem;
         }
+
         .model-status {
             font-size: 0.7rem;
             color: var(--text-secondary);
             margin-left: 8px;
         }
+
         #modelSelector {
             padding: 6px 12px;
             border-radius: 8px;
@@ -246,6 +266,7 @@
             padding: 32px 24px;
             background: #fdfdfd;
         }
+
         .message-container {
             max-width: 860px;
             margin: 0 auto;
@@ -258,6 +279,7 @@
             display: flex;
             flex-direction: column;
         }
+
         .message-role {
             font-size: 0.7rem;
             font-weight: 600;
@@ -268,6 +290,7 @@
             align-items: center;
             justify-content: space-between;
         }
+
         .message-bubble {
             background: var(--assistant-msg-bg);
             border: 1px solid var(--chat-border);
@@ -278,29 +301,44 @@
             box-shadow: var(--shadow-sm);
             white-space: pre-wrap;
         }
+
         .assistant-message .message-bubble {
             font-family: 'Inter', sans-serif;
             background: #ffffff;
             font-size: 0.95rem;
             border-left: 4px solid var(--accent);
         }
+
         .user-message .message-bubble {
             background: var(--user-msg-bg);
             border-color: transparent;
         }
-        .message-bubble h1, .message-bubble h2, .message-bubble h3 {
+
+        .message-bubble h1,
+        .message-bubble h2,
+        .message-bubble h3 {
             font-weight: 600;
             margin-top: 1.2em;
             margin-bottom: 0.6em;
         }
-        .message-bubble p { margin-bottom: 0.8em; }
-        .message-bubble ul, .message-bubble ol { margin-left: 1.5em; margin-bottom: 1em; }
+
+        .message-bubble p {
+            margin-bottom: 0.8em;
+        }
+
+        .message-bubble ul,
+        .message-bubble ol {
+            margin-left: 1.5em;
+            margin-bottom: 1em;
+        }
+
         .message-bubble code {
             background: #f0f0f3;
             padding: 0.2em 0.4em;
             border-radius: 6px;
             font-family: 'Source Code Pro', monospace;
         }
+
         .message-bubble pre {
             background: #f8f9fa;
             padding: 1rem;
@@ -309,6 +347,7 @@
             font-family: 'Source Code Pro', monospace;
             border: 1px solid var(--chat-border);
         }
+
         .revise-btn {
             background: transparent;
             border: 1px solid var(--chat-border);
@@ -318,6 +357,7 @@
             cursor: pointer;
             color: var(--text-secondary);
         }
+
         .revise-btn:hover {
             background: #f1f3f5;
         }
@@ -330,7 +370,18 @@
             vertical-align: middle;
             animation: blink 1s step-end infinite;
         }
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0
+            }
+        }
 
         /* COMPONENTES CUSTOMIZADOS PARA O MODELO */
         .message-bubble table.data-table {
@@ -342,6 +393,7 @@
             border-radius: 8px;
             overflow: hidden;
         }
+
         .message-bubble table.data-table th {
             background: #f8f9fa;
             padding: 10px 12px;
@@ -349,10 +401,12 @@
             font-weight: 600;
             border-bottom: 2px solid var(--chat-border);
         }
+
         .message-bubble table.data-table td {
             padding: 8px 12px;
             border-bottom: 1px solid var(--chat-border);
         }
+
         .message-bubble table.data-table tr:last-child td {
             border-bottom: none;
         }
@@ -364,6 +418,7 @@
             border-radius: 8px;
             margin: 16px 0;
         }
+
         .message-bubble .info-card h4 {
             margin-top: 0;
             font-size: 0.9rem;
@@ -386,6 +441,7 @@
             gap: 12px;
             margin: 16px 0;
         }
+
         .message-bubble .stat-item {
             background: white;
             border: 1px solid var(--chat-border);
@@ -393,11 +449,13 @@
             border-radius: 8px;
             text-align: center;
         }
+
         .message-bubble .stat-value {
             font-size: 1.2rem;
             font-weight: 700;
             display: block;
         }
+
         .message-bubble .stat-label {
             font-size: 0.7rem;
             color: var(--text-secondary);
@@ -414,12 +472,14 @@
             border-radius: 8px;
             margin: 16px 0;
         }
+
         .message-bubble .chart-bar {
             background: var(--accent);
             width: 24px;
             border-radius: 4px 4px 0 0;
             position: relative;
         }
+
         .message-bubble .chart-bar:hover::after {
             content: attr(data-value);
             position: absolute;
@@ -447,6 +507,7 @@
             border-top: 1px solid var(--chat-border);
             background: white;
         }
+
         .input-card {
             max-width: 860px;
             margin: 0 auto;
@@ -456,9 +517,11 @@
             padding: 16px 20px;
             box-shadow: var(--shadow-sm);
         }
+
         .input-card:focus-within {
             border-color: #adb5bd;
         }
+
         textarea {
             width: 100%;
             border: none;
@@ -469,19 +532,22 @@
             font-family: 'Inter', sans-serif;
             background: transparent;
         }
+
         .actions {
             margin-top: 16px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             flex-wrap: wrap;
             gap: 12px;
         }
+
         .file-group {
             display: flex;
             gap: 12px;
             align-items: center;
         }
+
         .file-btn {
             background: transparent;
             border: 1px solid var(--chat-border);
@@ -490,10 +556,13 @@
             font-size: 0.75rem;
             cursor: pointer;
         }
+
         .file-btn:hover {
             background: var(--hover-bg);
         }
-        .send-btn, .stop-generation {
+
+        .send-btn,
+        .stop-generation {
             border: none;
             background: #000;
             color: white;
@@ -506,20 +575,25 @@
             cursor: pointer;
             font-size: 1.1rem;
         }
-        .send-btn:disabled, .stop-generation:disabled {
+
+        .send-btn:disabled,
+        .stop-generation:disabled {
             opacity: 0.4;
             cursor: not-allowed;
         }
+
         .stop-generation {
             background: #fff;
             border: 1px solid #dc3545;
             color: #dc3545;
         }
+
         .status {
             margin-top: 12px;
             font-size: 0.7rem;
             color: var(--text-secondary);
         }
+
         .loader-icon {
             display: inline-block;
             width: 14px;
@@ -529,7 +603,12 @@
             border-radius: 50%;
             animation: spin 0.6s linear infinite;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
         /* VOICE CALL OVERLAY */
         .call-overlay {
@@ -548,9 +627,11 @@
             color: white;
             transition: all 0.3s ease;
         }
+
         .call-overlay.active {
             display: flex;
         }
+
         .call-status {
             font-size: 1.2rem;
             margin-bottom: 40px;
@@ -558,6 +639,7 @@
             letter-spacing: 1px;
             color: #ccc;
         }
+
         .call-visualizer {
             position: relative;
             width: 200px;
@@ -566,6 +648,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .pulse-circle {
             position: absolute;
             width: 150px;
@@ -574,6 +657,7 @@
             background: rgba(255, 255, 255, 0.1);
             animation: pulse-ring 2s infinite ease-out;
         }
+
         .avatar-circle {
             width: 100px;
             height: 100px;
@@ -583,13 +667,15 @@
             align-items: center;
             justify-content: center;
             z-index: 1;
-            box-shadow: 0 0 30px rgba(255,255,255,0.2);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
         }
+
         .avatar-circle svg {
             width: 50px;
             height: 50px;
             color: black;
         }
+
         .call-transcription {
             margin-top: 40px;
             max-width: 80%;
@@ -599,11 +685,13 @@
             min-height: 3em;
             color: #eee;
         }
+
         .call-controls {
             margin-top: 60px;
             display: flex;
             gap: 24px;
         }
+
         .call-btn {
             width: 64px;
             height: 64px;
@@ -615,726 +703,772 @@
             cursor: pointer;
             transition: transform 0.2s;
         }
-        .call-btn:hover { transform: scale(1.1); }
-        .end-call-btn { background: #ff3b30; color: white; }
-        .mute-btn { background: rgba(255,255,255,0.1); color: white; }
+
+        .call-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .end-call-btn {
+            background: #ff3b30;
+            color: white;
+        }
+
+        .mute-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
 
         @keyframes pulse-ring {
-            0% { transform: scale(0.8); opacity: 0.5; }
-            100% { transform: scale(1.8); opacity: 0; }
+            0% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1.8);
+                opacity: 0;
+            }
         }
 
         .speaking .pulse-circle {
             background: rgba(0, 122, 255, 0.3);
             animation: pulse-ring 1s infinite ease-out;
         }
+
         .listening .pulse-circle {
             background: rgba(255, 255, 255, 0.3);
             animation: pulse-ring 1.5s infinite ease-out;
         }
     </style>
 </head>
+
 <body>
-<div class="app">
-    <aside class="sidebar">
-        <div class="logo-area">
-            <div class="logo">ollama<small>ai</small></div>
-        </div>
-        <button class="new-chat" id="newChatBtn">+ Novo chat</button>
-        <div class="chats-header">Conversas</div>
-        <div class="chats-list" id="chatsList"></div>
-        <button class="voice-call-btn" id="startCallBtn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.28-2.28a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-            Chamada de Voz
-        </button>
-        <button class="save-chat-btn" id="saveChatBtn">💾 Salvar conversa</button>
-        <div class="context-section" style="margin-top: 20px; border-top: 1px solid var(--sidebar-border); padding-top: 20px;">
-            <div class="chats-header">Contexto (PDF)</div>
-            <div id="contextFilesList" style="font-size: 0.8rem; color: var(--text-secondary); padding-left: 8px; display: flex; flex-direction: column; gap: 4px;">
-                <span style="font-style: italic;">Nenhum PDF na pasta /contexto</span>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo">ollama<small>ai</small></div>
             </div>
-            <button class="new-chat" id="refreshContextBtn" style="margin-top: 10px; width: 100%; justify-content: center;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-                Atualizar Contexto
+            <button class="new-chat" id="newChatBtn">+ Novo chat</button>
+            <div class="chats-header">Conversas</div>
+            <div class="chats-list" id="chatsList"></div>
+            <button class="voice-call-btn" id="startCallBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l2.28-2.28a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                    </path>
+                </svg>
+                Chamada de Voz
             </button>
-        </div>
-    </aside>
-
-    <div class="call-overlay" id="callOverlay">
-        <div class="call-status" id="callStatus">Iniciando chamada...</div>
-        <div class="call-visualizer" id="callVisualizer">
-            <div class="pulse-circle"></div>
-            <div class="avatar-circle">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line><line x1="8" y1="22" x2="16" y2="22"></line></svg>
+            <button class="save-chat-btn" id="saveChatBtn">💾 Salvar conversa</button>
+            <div class="context-section"
+                style="margin-top: 20px; border-top: 1px solid var(--sidebar-border); padding-top: 20px;">
+                <div class="chats-header">Contexto (PDF)</div>
+                <div id="contextFilesList"
+                    style="font-size: 0.8rem; color: var(--text-secondary); padding-left: 8px; display: flex; flex-direction: column; gap: 4px;">
+                    <span style="font-style: italic;">Nenhum PDF na pasta /contexto</span>
+                </div>
+                <button class="new-chat" id="refreshContextBtn"
+                    style="margin-top: 10px; width: 100%; justify-content: center;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                        <path
+                            d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15">
+                        </path>
+                    </svg>
+                    Atualizar Contexto
+                </button>
             </div>
-        </div>
-        <div class="call-transcription" id="callTranscription"></div>
-        
-        <div style="margin-top: 20px; width: 250px;">
-            <label style="font-size: 0.7rem; color: #888; display: block; margin-bottom: 5px;">Escolha a voz:</label>
-            <select id="voiceSelector" style="width: 100%; background: #222; color: white; border: 1px solid #444; padding: 5px; border-radius: 5px; font-size: 0.8rem;"></select>
-        </div>
+        </aside>
 
-        <div class="call-controls">
-            <button class="call-btn mute-btn" id="muteCallBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M12 1a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line><line x1="8" y1="22" x2="16" y2="22"></line></svg>
-            </button>
-            <button class="call-btn end-call-btn" id="endCallBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 .45-2.11 12.84 12.84 0 0 0-.7-2.81 2 2 0 0 1 1.72-2h3a2 2 0 0 1 2 2.18 19.79 19.79 0 0 1-3.07 8.63z"></path></svg>
-            </button>
-        </div>
-    </div>
-
-    <main class="main">
-        <div class="topbar">
-            <div><span class="model-name">Ollama local</span><span class="model-status">contexto total</span></div>
-            <select id="modelSelector"><option>Carregando modelos…</option></select>
-        </div>
-
-        <div class="chat-area" id="chatArea">
-            <div class="message-container" id="messageContainer">
-                <div class="message-wrapper assistant-message">
-                    <div class="message-role">Assistente</div>
-                    <div class="message-bubble">✦ Selecione ou crie um chat.</div>
+        <div class="call-overlay" id="callOverlay">
+            <div class="call-status" id="callStatus">Iniciando chamada...</div>
+            <div class="call-visualizer" id="callVisualizer">
+                <div class="pulse-circle"></div>
+                <div class="avatar-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        <line x1="12" y1="19" x2="12" y2="22"></line>
+                        <line x1="8" y1="22" x2="16" y2="22"></line>
+                    </svg>
                 </div>
             </div>
-            <div id="errorContainer"></div>
+            <div class="call-transcription" id="callTranscription"></div>
+
+            <div style="margin-top: 20px; width: 250px;">
+                <label style="font-size: 0.7rem; color: #888; display: block; margin-bottom: 5px;">Escolha a
+                    voz:</label>
+                <select id="voiceSelector"
+                    style="width: 100%; background: #222; color: white; border: 1px solid #444; padding: 5px; border-radius: 5px; font-size: 0.8rem;"></select>
+            </div>
+
+            <div class="call-controls">
+                <button class="call-btn mute-btn" id="muteCallBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                        <path d="M12 1a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        <line x1="12" y1="19" x2="12" y2="22"></line>
+                        <line x1="8" y1="22" x2="16" y2="22"></line>
+                    </svg>
+                </button>
+                <button class="call-btn end-call-btn" id="endCallBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                        <path
+                            d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 .45-2.11 12.84 12.84 0 0 0-.7-2.81 2 2 0 0 1 1.72-2h3a2 2 0 0 1 2 2.18 19.79 19.79 0 0 1-3.07 8.63z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
         </div>
 
-        <div class="input-wrapper">
-            <div class="input-card">
-                <textarea id="promptInput" placeholder="Digite sua mensagem…"></textarea>
-                <div class="actions">
-                    <div style="display: flex; gap: 8px; margin-left: auto;">
+        <main class="main">
+            <div class="topbar">
+                <div><span class="model-name">Ollama local</span><span class="model-status">contexto total</span></div>
+                <select id="modelSelector">
+                    <option>Carregando modelos…</option>
+                </select>
+            </div>
+
+            <div class="chat-area" id="chatArea">
+                <div class="message-container" id="messageContainer">
+                    <div class="message-wrapper assistant-message">
+                        <div class="message-role">Assistente</div>
+                        <div class="message-bubble">✦ Selecione ou crie um chat.</div>
+                    </div>
+                </div>
+                <div id="errorContainer"></div>
+            </div>
+
+            <div class="input-wrapper">
+                <div class="input-card">
+                    <textarea id="promptInput" placeholder="Digite sua mensagem…"></textarea>
+                    <div class="actions">
                         <button id="stopGenBtn" class="stop-generation" disabled>x</button>
                         <button id="sendRequestBtn" class="send-btn">↑</button>
                     </div>
+                    <div class="status" id="statusInfo"></div>
                 </div>
-                <div class="status" id="statusInfo"></div>
             </div>
-        </div>
-    </main>
-</div>
+        </main>
+    </div>
 
-<script>
-    (function(){
-        // ---------- CONFIG ----------
-        const GENERATE_URL = "http://localhost:11434/api/generate";
-        const TAGS_URL = "http://localhost:11434/api/tags";
-        const SAVE_CHAT_URL = "/save-chat";
+    <script>
+        (function () {
+            // ---------- CONFIG ----------
+            const GENERATE_URL = "http://localhost:11434/api/generate";
+            const TAGS_URL = "http://localhost:11434/api/tags";
+            const SAVE_CHAT_URL = "/save-chat";
 
-        // DOM
-        const promptEl = document.getElementById("promptInput");
-        const sendBtn = document.getElementById("sendRequestBtn");
-        const stopBtn = document.getElementById("stopGenBtn");
-        const messageContainer = document.getElementById("messageContainer");
-        const errorContainer = document.getElementById("errorContainer");
-        const modelSelector = document.getElementById("modelSelector");
-        const newChatBtn = document.getElementById("newChatBtn");
-        const saveChatBtn = document.getElementById("saveChatBtn");
-        const statusSpan = document.getElementById("statusInfo");
-        const chatsListDiv = document.getElementById("chatsList");
-        const startCallBtn = document.getElementById("startCallBtn");
-        const endCallBtn = document.getElementById("endCallBtn");
-        const callOverlay = document.getElementById("callOverlay");
-        const callStatus = document.getElementById("callStatus");
-        const callTranscription = document.getElementById("callTranscription");
-        const callVisualizer = document.getElementById("callVisualizer");
-        const voiceSelector = document.getElementById("voiceSelector");
+            // DOM
+            const promptEl = document.getElementById("promptInput");
+            const sendBtn = document.getElementById("sendRequestBtn");
+            const stopBtn = document.getElementById("stopGenBtn");
+            const messageContainer = document.getElementById("messageContainer");
+            const errorContainer = document.getElementById("errorContainer");
+            const modelSelector = document.getElementById("modelSelector");
+            const newChatBtn = document.getElementById("newChatBtn");
+            const saveChatBtn = document.getElementById("saveChatBtn");
+            const statusSpan = document.getElementById("statusInfo");
+            const chatsListDiv = document.getElementById("chatsList");
+            const startCallBtn = document.getElementById("startCallBtn");
+            const endCallBtn = document.getElementById("endCallBtn");
+            const callOverlay = document.getElementById("callOverlay");
+            const callStatus = document.getElementById("callStatus");
+            const callTranscription = document.getElementById("callTranscription");
+            const callVisualizer = document.getElementById("callVisualizer");
+            const voiceSelector = document.getElementById("voiceSelector");
 
-        // Estado
-        let isCallActive = false;
-        let recognition = null;
-        let synthesis = window.speechSynthesis;
-        let callLanguage = 'pt-BR';
-        let selectedVoice = null;
-        let voices = [];
+            // Estado
+            let isCallActive = false;
+            let recognition = null;
+            let synthesis = window.speechSynthesis;
+            let callLanguage = 'pt-BR';
+            let selectedVoice = null;
+            let voices = [];
 
-        // Estado
-        let currentChatId = null;
-        let chats = {};
-        let currentAbortController = null;
-        let isGenerating = false;
-        let currentStreamMessageDiv = null;
-        let currentStreamBubble = null;
-        let currentStreamText = "";
-        let globalContext = "";
-        let contextFiles = [];
+            let currentChatId = null;
+            let chats = {};
+            let currentAbortController = null;
+            let isGenerating = false;
+            let currentStreamMessageDiv = null;
+            let currentStreamBubble = null;
+            let currentStreamText = "";
+            let globalContext = "";
+            let contextFiles = [];
 
-        // ---------- Context Management ----------
-        async function fetchContext() {
-            try {
-                const res = await fetch("/get-context");
-                const data = await res.json();
-                globalContext = data.context || "";
-                contextFiles = data.files || [];
-                renderContextFiles();
-            } catch (e) {
-                console.error("Erro ao buscar contexto:", e);
+            // ---------- Context Management ----------
+            async function fetchContext() {
+                try {
+                    const res = await fetch("/get-context");
+                    const data = await res.json();
+                    globalContext = data.context || "";
+                    contextFiles = data.files || [];
+                    renderContextFiles();
+                } catch (e) {
+                    console.error("Erro ao buscar contexto:", e);
+                }
             }
-        }
 
-        function renderContextFiles() {
-            const listEl = document.getElementById("contextFilesList");
-            if (contextFiles.length === 0) {
-                listEl.innerHTML = '<span style="font-style: italic;">Nenhum PDF na pasta /contexto</span>';
-            } else {
-                listEl.innerHTML = contextFiles.map(f => `
+            function renderContextFiles() {
+                const listEl = document.getElementById("contextFilesList");
+                if (contextFiles.length === 0) {
+                    listEl.innerHTML = '<span style="font-style: italic;">Nenhum PDF na pasta /contexto</span>';
+                } else {
+                    listEl.innerHTML = contextFiles.map(f => `
                     <div style="display: flex; align-items: center; gap: 6px;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                         <span>${escapeHtml(f)}</span>
                     </div>
                 `).join("");
+                }
             }
-        }
 
-        document.getElementById("refreshContextBtn").addEventListener("click", fetchContext);
+            document.getElementById("refreshContextBtn").addEventListener("click", fetchContext);
 
-        // ---------- Chat storage / UI ----------
-        function loadChatsFromStorage() {
-            const stored = localStorage.getItem("ollama_chats_overleaf");
-            if(stored) chats = JSON.parse(stored);
-            else chats = {};
-            renderChatsList();
-        }
-        function saveChatsToStorage() {
-            localStorage.setItem("ollama_chats_overleaf", JSON.stringify(chats));
-        }
-
-        function createNewChat() {
-            const id = Date.now().toString();
-            chats[id] = { id, title: "Nova conversa", messages: [], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
-            saveChatsToStorage();
-            return id;
-        }
-
-        function loadChat(chatId) {
-            if(!chats[chatId]) return;
-            currentChatId = chatId;
-            renderChatMessages(chatId);
-            renderChatsList();
-            promptEl.value = "";
-            clearError();
-        }
-
-        function renderChatMessages(chatId) {
-            const chat = chats[chatId];
-            if(!chat) return;
-            messageContainer.innerHTML = "";
-            if(chat.messages.length === 0) {
-                messageContainer.innerHTML = `<div class="message-wrapper assistant-message"><div class="message-role">Assistente</div><div class="message-bubble">Inicie a conversa!</div></div>`;
-                return;
+            // ---------- Chat storage / UI ----------
+            function loadChatsFromStorage() {
+                const stored = localStorage.getItem("ollama_chats_overleaf");
+                if (stored) chats = JSON.parse(stored);
+                else chats = {};
+                renderChatsList();
             }
-            chat.messages.forEach(msg => {
-                const wrapper = document.createElement('div');
-                wrapper.className = `message-wrapper ${msg.role === 'user' ? 'user-message' : 'assistant-message'}`;
-                wrapper.innerHTML = `
+            function saveChatsToStorage() {
+                localStorage.setItem("ollama_chats_overleaf", JSON.stringify(chats));
+            }
+
+            function createNewChat() {
+                const id = Date.now().toString();
+                chats[id] = { id, title: "Nova conversa", messages: [], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+                saveChatsToStorage();
+                return id;
+            }
+
+            function loadChat(chatId) {
+                if (!chats[chatId]) return;
+                currentChatId = chatId;
+                renderChatMessages(chatId);
+                renderChatsList();
+                promptEl.value = "";
+                clearError();
+            }
+
+            function renderChatMessages(chatId) {
+                const chat = chats[chatId];
+                if (!chat) return;
+                messageContainer.innerHTML = "";
+                if (chat.messages.length === 0) {
+                    messageContainer.innerHTML = `<div class="message-wrapper assistant-message"><div class="message-role">Assistente</div><div class="message-bubble">Inicie a conversa!</div></div>`;
+                    return;
+                }
+                chat.messages.forEach(msg => {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = `message-wrapper ${msg.role === 'user' ? 'user-message' : 'assistant-message'}`;
+                    wrapper.innerHTML = `
                     <div class="message-role"><span>${msg.role === 'user' ? 'Você' : 'Assistente'}</span></div>
                 `;
-                const bubble = document.createElement('div');
-                bubble.className = 'message-bubble';
-                if(msg.role === 'assistant') {
-                    bubble.innerHTML = msg.content;
-                } else {
-                    bubble.textContent = msg.content;
+                    const bubble = document.createElement('div');
+                    bubble.className = 'message-bubble';
+                    if (msg.role === 'assistant') {
+                        bubble.innerHTML = msg.content;
+                    } else {
+                        bubble.textContent = msg.content;
+                    }
+                    wrapper.appendChild(bubble);
+                    if (msg.role === 'assistant') {
+                        const copyBtn = document.createElement('button');
+                        copyBtn.className = 'revise-btn';
+                        copyBtn.innerHTML = '📋 Copiar';
+                        copyBtn.onclick = () => {
+                            navigator.clipboard.writeText(msg.content);
+                            copyBtn.innerText = '✅ Copiado';
+                            setTimeout(() => copyBtn.innerText = '📋 Copiar', 2000);
+                        };
+
+                        const reviseBtn = document.createElement('button');
+                        reviseBtn.className = 'revise-btn';
+                        reviseBtn.innerHTML = '✎ Revisar';
+                        reviseBtn.onclick = () => reviseMessage(msg.content);
+
+                        const roleHeader = wrapper.querySelector('.message-role');
+                        roleHeader.appendChild(copyBtn);
+                        roleHeader.appendChild(reviseBtn);
+                    }
+                    messageContainer.appendChild(wrapper);
+                });
+                scrollToBottom();
+            }
+
+            function addMessageToCurrentChat(role, content) {
+                if (!currentChatId) currentChatId = createNewChat();
+                const chat = chats[currentChatId];
+                chat.messages.push({ role, content, timestamp: new Date().toISOString() });
+                chat.updatedAt = new Date().toISOString();
+                if (chat.messages.length === 1 && role === 'user') {
+                    chat.title = content.slice(0, 30) + (content.length > 30 ? '…' : '');
                 }
-                wrapper.appendChild(bubble);
-                if(msg.role === 'assistant') {
-                    const copyBtn = document.createElement('button');
-                    copyBtn.className = 'revise-btn';
-                    copyBtn.innerHTML = '📋 Copiar';
-                    copyBtn.onclick = () => {
-                        navigator.clipboard.writeText(msg.content);
-                        copyBtn.innerText = '✅ Copiado';
-                        setTimeout(() => copyBtn.innerText = '📋 Copiar', 2000);
-                    };
+                saveChatsToStorage();
+                renderChatMessages(currentChatId);
+                renderChatsList();
+            }
 
-                    const reviseBtn = document.createElement('button');
-                    reviseBtn.className = 'revise-btn';
-                    reviseBtn.innerHTML = '✎ Revisar';
-                    reviseBtn.onclick = () => reviseMessage(msg.content);
+            function updateLastAssistantMessage(content) {
+                if (!currentChatId) return;
+                const chat = chats[currentChatId];
+                const last = chat.messages[chat.messages.length - 1];
+                if (last && last.role === 'assistant') last.content = content;
+                else chat.messages.push({ role: 'assistant', content, timestamp: new Date().toISOString() });
+                saveChatsToStorage();
+                renderChatMessages(currentChatId);
+            }
 
-                    const roleHeader = wrapper.querySelector('.message-role');
-                    roleHeader.appendChild(copyBtn);
-                    roleHeader.appendChild(reviseBtn);
+            function deleteChat(chatId) {
+                if (chatId === currentChatId) {
+                    const newId = createNewChat();
+                    loadChat(newId);
                 }
-                messageContainer.appendChild(wrapper);
-            });
-            scrollToBottom();
-        }
-
-        function addMessageToCurrentChat(role, content) {
-            if(!currentChatId) currentChatId = createNewChat();
-            const chat = chats[currentChatId];
-            chat.messages.push({ role, content, timestamp: new Date().toISOString() });
-            chat.updatedAt = new Date().toISOString();
-            if(chat.messages.length === 1 && role === 'user') {
-                chat.title = content.slice(0, 30) + (content.length > 30 ? '…' : '');
+                delete chats[chatId];
+                saveChatsToStorage();
+                renderChatsList();
+                if (Object.keys(chats).length === 0) {
+                    const newId = createNewChat();
+                    loadChat(newId);
+                } else if (currentChatId === chatId) {
+                    const firstId = Object.keys(chats)[0];
+                    loadChat(firstId);
+                }
             }
-            saveChatsToStorage();
-            renderChatMessages(currentChatId);
-            renderChatsList();
-        }
 
-        function updateLastAssistantMessage(content) {
-            if(!currentChatId) return;
-            const chat = chats[currentChatId];
-            const last = chat.messages[chat.messages.length-1];
-            if(last && last.role === 'assistant') last.content = content;
-            else chat.messages.push({ role: 'assistant', content, timestamp: new Date().toISOString() });
-            saveChatsToStorage();
-            renderChatMessages(currentChatId);
-        }
-
-        function deleteChat(chatId) {
-            if(chatId === currentChatId) {
-                const newId = createNewChat();
-                loadChat(newId);
-            }
-            delete chats[chatId];
-            saveChatsToStorage();
-            renderChatsList();
-            if(Object.keys(chats).length === 0) {
-                const newId = createNewChat();
-                loadChat(newId);
-            } else if(currentChatId === chatId) {
-                const firstId = Object.keys(chats)[0];
-                loadChat(firstId);
-            }
-        }
-
-        function renderChatsList() {
-            const sorted = Object.values(chats).sort((a,b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-            chatsListDiv.innerHTML = sorted.map(chat => `
+            function renderChatsList() {
+                const sorted = Object.values(chats).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+                chatsListDiv.innerHTML = sorted.map(chat => `
                 <div class="chat-item ${currentChatId === chat.id ? 'active' : ''}" data-id="${chat.id}">
                     <span class="chat-title">${escapeHtml(chat.title)}</span>
                     <button class="delete-chat" data-id="${chat.id}">x</button>
                 </div>
             `).join("");
-            document.querySelectorAll('.chat-item').forEach(el => {
-                el.addEventListener('click', (e) => {
-                    if(e.target.classList.contains('delete-chat')) return;
-                    const id = el.dataset.id;
-                    if(id) loadChat(id);
+                document.querySelectorAll('.chat-item').forEach(el => {
+                    el.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('delete-chat')) return;
+                        const id = el.dataset.id;
+                        if (id) loadChat(id);
+                    });
+                    const del = el.querySelector('.delete-chat');
+                    if (del) del.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = del.dataset.id;
+                        if (id && confirm("Excluir conversa?")) deleteChat(id);
+                    });
                 });
-                const del = el.querySelector('.delete-chat');
-                if(del) del.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const id = del.dataset.id;
-                    if(id && confirm("Excluir conversa?")) deleteChat(id);
+            }
+
+            function escapeHtml(str) {
+                if (!str) return "";
+                return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+            }
+
+            function showError(msg) { errorContainer.innerHTML = `<div class="error-message">✖ ${escapeHtml(msg)}</div>`; }
+            function clearError() { errorContainer.innerHTML = ""; }
+            function scrollToBottom() { const ca = document.getElementById('chatArea'); ca.scrollTop = ca.scrollHeight; }
+
+            // ---------- Prompt building (CORRIGIDA) ----------
+            function buildFullPromptWithHistory(userMessage) {
+                let context = "";
+                if (globalContext) {
+                    context += "\n/// CONTEXTO DOS PDFs NA PASTA /CONTEXTO ///\n";
+                    context += globalContext;
+                    context += "\n/// FIM DO CONTEXTO DOS PDFs ///\n\n";
+                }
+
+                let system = `Você é um assistente virtual especializado em análise de documentos.
+Sua tarefa é responder perguntas baseando-se EXCLUSIVAMENTE nos documentos fornecidos.
+
+### REGRAS CRÍTICAS DE RESPOSTA (NÃO IGNORE):
+1. ZERO MARKDOWN: É terminantemente proibido o uso de sintaxe Markdown (**bold**, # header, - lista, etc.).
+2. APENAS HTML: Sua resposta deve conter exclusivamente tags HTML válidas.
+3. TEMPLATE OBRIGATÓRIO: Você DEVE estruturar sua resposta exatamente assim:
+   <p>[Breve parágrafo com a resposta direta e resumida]</p>
+   <div class='info-card'>
+     <h4>[Título Curto do Conceito ou Termo]</h4>
+     <p>[Explicação detalhada e técnica baseada no documento]</p>
+   </div>
+   <strong>[Citação textual e entre aspas do documento que comprova a resposta] (Pág. X)</strong>
+4. RESTRIÇÃO DE TAGS: Use apenas <p>, <div>, <h4>, <strong>, <em>, <ul>, <li>, <br>, <table>.
+5. IDIOMA: Responda sempre em Português (Brasil).
+6. SEM HISTÓRICO: Ignore conversas anteriores e foque apenas na pergunta atual e no contexto.`;
+
+                return {
+                    system: system,
+                    prompt: `${context}\nPergunta do Usuário: ${userMessage}\nAssistente (Respondendo estritamente em HTML conforme o template):`
+                };
+            }
+
+            // ---------- Streaming request ----------
+            async function sendStreamingRequest(model, payload) {
+                currentAbortController = new AbortController();
+                const response = await fetch(GENERATE_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        model,
+                        system: payload.system,
+                        prompt: payload.prompt,
+                        stream: true,
+                        options: { temperature: 0, seed: 42 }
+                    }),
+                    signal: currentAbortController.signal
                 });
-            });
-        }
-
-        function escapeHtml(str) {
-            if(!str) return "";
-            return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
-        }
-
-        function showError(msg) { errorContainer.innerHTML = `<div class="error-message">✖ ${escapeHtml(msg)}</div>`; }
-        function clearError() { errorContainer.innerHTML = ""; }
-        function scrollToBottom() { const ca = document.getElementById('chatArea'); ca.scrollTop = ca.scrollHeight; }
-
-        // ---------- Prompt com histórico + arquivos ----------
-        function buildFullPromptWithHistory(userMessage, historyMessages) {
-            let context = "";
-            
-            // Contexto dos PDFs na pasta /contexto
-            if(globalContext) {
-                context += "\n/// CONTEXTO DOS PDFs NA PASTA /CONTEXTO ///\n";
-                context += globalContext;
-                context += "\n/// FIM DO CONTEXTO DOS PDFs ///\n\n";
-            }
-
-            let conv = "";
-            for(const msg of historyMessages) {
-                conv += `${msg.role === 'user' ? 'Usuário' : 'Assistente'}: ${msg.content}\n`;
-            }
-
-            let system = "Você é um assistente virtual prestativo. ";
-            if (globalContext) {
-                system += "Responda às perguntas do usuário baseando-se EXCLUSIVAMENTE nas informações contidas nos documentos fornecidos acima. ";
-            }
-
-            system += "\nREGRAS OBRIGATÓRIAS DE FORMATAÇÃO:\n";
-            system += "1. NUNCA use markdown (como **, #, -, etc.).\n";
-            system += "2. Forneça a resposta APENAS em HTML puro.\n";
-            system += "3. Toda a sua resposta textual base deve estar envolvida por tags <p></p>.\n";
-            system += "4. Use os seguintes COMPONENTES HTML para formatar sua resposta:\n";
-            system += "   - TABELAS: Use <table class='data-table'><thead><tr><th>Coluna</th></tr></thead><tbody><tr><td>Dado</td></tr></tbody></table>\n";
-            system += "   - DESTAQUES: Use <div class='info-card'><h4>Título</h4>Conteúdo</div> para informações importantes.\n";
-            system += "   - TEXTO DESTACADO: Use <span class='highlight-text'>texto</span> para termos importantes no meio do texto.\n";
-            system += "   - ESTATÍSTICAS: Use <div class='stat-grid'><div class='stat-item'><span class='stat-value'>Valor</span><span class='stat-label'>Rótulo</span></div></div>\n";
-            system += "   - MINI GRÁFICO: Use <div class='mini-chart'><div class='chart-bar' style='height: 70%' data-value='70%'></div></div>\n";
-            system += "5. IMPORTANTE: Não use <html>, <body>, <head> ou <style>. Sua resposta será inserida em um <div>. Use APENAS as tags permitidas acima e tags básicas (p, ul, li, strong, em, br).\n";
-
-            if (globalContext) {
-                system += "6. Sempre cite explicitamente o número da página onde encontrou a informação.\n";
-                system += "7. Se a informação não estiver nos documentos, diga educadamente que não possui essa informação.\n";
-                system += "8. O trecho do documento que você usar para responder DEVE ESTAR EM NEGRITO (use APENAS a tag <strong>trecho</strong>).\n";
-                system += "9. AO FINAL de cada resposta, coloque o trecho IDENTICO do texto original junto com o número da página de onde foi retirado, tudo dentro de uma tag <strong>trecho (Pág. X)</strong>.\n";
-            }
-
-            return `${system}\n\n${context}\n${conv}\nUsuário: ${userMessage}\nAssistente:`;
-        }
-
-        // ---------- Streaming request ----------
-        async function sendStreamingRequest(model, fullPrompt) {
-            currentAbortController = new AbortController();
-            const response = await fetch(GENERATE_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ model, prompt: fullPrompt, stream: true, options: { temperature: 0, seed: 42 } }),
-                signal: currentAbortController.signal
-            });
-            if(!response.ok) throw new Error(`HTTP ${response.status}`);
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder("utf-8");
-            let buffer = "", accumulated = "";
-            while(true) {
-                const { done, value } = await reader.read();
-                if(done) break;
-                buffer += decoder.decode(value, { stream: true });
-                const lines = buffer.split("\n");
-                buffer = lines.pop();
-                for(const line of lines) {
-                    if(!line.trim()) continue;
-                    try {
-                        const chunk = JSON.parse(line);
-                        if(chunk.response) {
-                            accumulated += chunk.response;
-                            if(currentStreamBubble) {
-                                currentStreamBubble.innerHTML = accumulated + '<span class="streaming-cursor"></span>';
-                                scrollToBottom();
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder("utf-8");
+                let buffer = "", accumulated = "";
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split("\n");
+                    buffer = lines.pop();
+                    for (const line of lines) {
+                        if (!line.trim()) continue;
+                        try {
+                            const chunk = JSON.parse(line);
+                            if (chunk.response) {
+                                accumulated += chunk.response;
+                                if (currentStreamBubble) {
+                                    currentStreamBubble.innerHTML = accumulated + '<span class="streaming-cursor"></span>';
+                                    scrollToBottom();
+                                }
                             }
-                        }
-                    } catch(e) {}
+                        } catch (e) { }
+                    }
+                }
+                return accumulated;
+            }
+
+            // ---------- Enviar mensagem principal ----------
+            async function sendPrompt() {
+                if (isGenerating) { showError("Aguarde a resposta atual."); return; }
+                clearError();
+                const userMsg = promptEl.value.trim();
+                if (!userMsg) { showError("Digite uma mensagem."); return; }
+                const selectedModel = modelSelector.value;
+                if (!selectedModel || selectedModel.includes("Nenhum")) { showError("Selecione um modelo."); return; }
+                if (!currentChatId) currentChatId = createNewChat();
+
+                isGenerating = true;
+                sendBtn.disabled = true;
+                stopBtn.disabled = false;
+                sendBtn.innerHTML = `<div class="loader-icon"></div>`;
+                statusSpan.innerText = "gerando...";
+
+                addMessageToCurrentChat('user', userMsg);
+                const fullPrompt = buildFullPromptWithHistory(userMsg);
+
+                // placeholder para streaming
+                const tempWrapper = document.createElement('div');
+                tempWrapper.className = 'message-wrapper assistant-message streaming-message';
+                tempWrapper.innerHTML = `<div class="message-role">Assistente</div><div class="message-bubble"><span class="streaming-cursor"></span></div>`;
+                messageContainer.appendChild(tempWrapper);
+                currentStreamMessageDiv = tempWrapper;
+                currentStreamBubble = tempWrapper.querySelector('.message-bubble');
+                currentStreamText = "";
+                scrollToBottom();
+
+                try {
+                    const finalResponse = await sendStreamingRequest(selectedModel, fullPrompt);
+                    if (currentStreamMessageDiv) currentStreamMessageDiv.remove();
+                    updateLastAssistantMessage(finalResponse);
+                    statusSpan.innerText = "✓ resposta concluída";
+                } catch (err) {
+                    if (err.name === 'AbortError') {
+                        statusSpan.innerText = "X Geração cancelada";
+                        if (currentStreamText) updateLastAssistantMessage(currentStreamText + " (cancelado)");
+                    } else {
+                        showError(`Erro: ${err.message}`);
+                    }
+                    if (currentStreamMessageDiv) currentStreamMessageDiv.remove();
+                } finally {
+                    isGenerating = false;
+                    sendBtn.disabled = false;
+                    stopBtn.disabled = true;
+                    sendBtn.innerHTML = "↑";
+                    promptEl.value = "";
+                    currentStreamMessageDiv = null;
+                    currentStreamBubble = null;
                 }
             }
-            return accumulated;
-        }
 
-        // ---------- Enviar mensagem principal ----------
-        async function sendPrompt() {
-            if(isGenerating) { showError("Aguarde a resposta atual."); return; }
-            clearError();
-            const userMsg = promptEl.value.trim();
-            if(!userMsg) { showError("Digite uma mensagem."); return; }
-            const selectedModel = modelSelector.value;
-            if(!selectedModel || selectedModel.includes("Nenhum")) { showError("Selecione um modelo."); return; }
-            if(!currentChatId) currentChatId = createNewChat();
+            // ---------- Revisar mensagem ----------
+            async function reviseMessage(originalContent) {
+                if (isGenerating) { showError("Aguarde a geração atual."); return; }
+                const selectedModel = modelSelector.value;
+                if (!selectedModel) return;
 
-            isGenerating = true;
-            sendBtn.disabled = true;
-            stopBtn.disabled = false;
-            sendBtn.innerHTML = `<div class="loader-icon"></div>`;
-            statusSpan.innerText = "gerando...";
+                isGenerating = true;
+                sendBtn.disabled = true;
+                stopBtn.disabled = false;
+                sendBtn.innerHTML = `<div class="loader-icon"></div>`;
+                statusSpan.innerText = "revisando...";
 
-            addMessageToCurrentChat('user', userMsg);
-            const chat = chats[currentChatId];
-            const historyMessages = chat.messages.slice(0, -1);
-            const fullPrompt = buildFullPromptWithHistory(userMsg, historyMessages);
+                const tempWrapper = document.createElement('div');
+                tempWrapper.className = 'message-wrapper assistant-message streaming-message';
+                tempWrapper.innerHTML = `<div class="message-role">Assistente (revisão)</div><div class="message-bubble"><span class="streaming-cursor"></span></div>`;
+                messageContainer.appendChild(tempWrapper);
+                currentStreamMessageDiv = tempWrapper;
+                currentStreamBubble = tempWrapper.querySelector('.message-bubble');
+                scrollToBottom();
 
-            // placeholder para streaming
-            const tempWrapper = document.createElement('div');
-            tempWrapper.className = 'message-wrapper assistant-message streaming-message';
-            tempWrapper.innerHTML = `<div class="message-role">Assistente</div><div class="message-bubble"><span class="streaming-cursor"></span></div>`;
-            messageContainer.appendChild(tempWrapper);
-            currentStreamMessageDiv = tempWrapper;
-            currentStreamBubble = tempWrapper.querySelector('.message-bubble');
-            currentStreamText = "";
-            scrollToBottom();
-
-            try {
-                const finalResponse = await sendStreamingRequest(selectedModel, fullPrompt);
-                if(currentStreamMessageDiv) currentStreamMessageDiv.remove();
-                updateLastAssistantMessage(finalResponse);
-                statusSpan.innerText = "✓ resposta concluída";
-            } catch(err) {
-                if(err.name === 'AbortError') {
-                    statusSpan.innerText = "X Geração cancelada";
-                    if(currentStreamText) updateLastAssistantMessage(currentStreamText + " (cancelado)");
-                } else {
-                    showError(`Erro: ${err.message}`);
+                try {
+                    const payload = {
+                        system: "Você é um revisor de texto especializado em HTML. Sua única tarefa é converter o conteúdo original para o template HTML solicitado, removendo qualquer resquício de Markdown.",
+                        prompt: `REVISE o seguinte conteúdo seguindo ESTRICTAMENTE estas regras:\n1. NÃO USE MARKDOWN.\n2. Retorne APENAS HTML PURO.\n3. Siga este TEMPLATE:\n   <p>[Texto]</p>\n   <div class='info-card'><h4>[Título]</h4>[Conteúdo]</div>\n   <strong>[Citação] (Pág. X)</strong>\n\nConteúdo original:\n${originalContent}\n\nNova versão revisada em HTML:`
+                    };
+                    const revised = await sendStreamingRequest(selectedModel, payload);
+                    if (currentStreamMessageDiv) currentStreamMessageDiv.remove();
+                    addMessageToCurrentChat('assistant', revised);
+                    statusSpan.innerText = "✓ revisão concluída";
+                } catch (err) {
+                    if (err.name !== 'AbortError') showError(`Erro na revisão: ${err.message}`);
+                    if (currentStreamMessageDiv) currentStreamMessageDiv.remove();
+                } finally {
+                    isGenerating = false;
+                    sendBtn.disabled = false;
+                    stopBtn.disabled = true;
+                    sendBtn.innerHTML = "↑";
                 }
-                if(currentStreamMessageDiv) currentStreamMessageDiv.remove();
-            } finally {
-                isGenerating = false;
-                sendBtn.disabled = false;
-                stopBtn.disabled = true;
-                sendBtn.innerHTML = "↑";
-                promptEl.value = "";
-                currentStreamMessageDiv = null;
-                currentStreamBubble = null;
             }
-        }
 
-        // ---------- Revisar mensagem ----------
-        async function reviseMessage(originalContent) {
-            if(isGenerating) { showError("Aguarde a geração atual."); return; }
-            const selectedModel = modelSelector.value;
-            if(!selectedModel) return;
-            const revisePrompt = `Revise o seguinte conteúdo. Retorne APENAS a versão melhorada em HTML PURO, sem blocos de markdown e sem explicações. Use tags como <p>, <strong>, etc. para formatar.\n\nConteúdo original:\n${originalContent}\n\nNova versão revisada em HTML:`;
-            
-            isGenerating = true;
-            sendBtn.disabled = true;
-            stopBtn.disabled = false;
-            sendBtn.innerHTML = `<div class="loader-icon"></div>`;
-            statusSpan.innerText = "revisando...";
-
-            const tempWrapper = document.createElement('div');
-            tempWrapper.className = 'message-wrapper assistant-message streaming-message';
-            tempWrapper.innerHTML = `<div class="message-role">Assistente (revisão)</div><div class="message-bubble"><span class="streaming-cursor"></span></div>`;
-            messageContainer.appendChild(tempWrapper);
-            currentStreamMessageDiv = tempWrapper;
-            currentStreamBubble = tempWrapper.querySelector('.message-bubble');
-            scrollToBottom();
-
-            try {
-                const revised = await sendStreamingRequest(selectedModel, revisePrompt);
-                if(currentStreamMessageDiv) currentStreamMessageDiv.remove();
-                addMessageToCurrentChat('assistant', revised);
-                statusSpan.innerText = "✓ revisão concluída";
-            } catch(err) {
-                if(err.name !== 'AbortError') showError(`Erro na revisão: ${err.message}`);
-                if(currentStreamMessageDiv) currentStreamMessageDiv.remove();
-            } finally {
-                isGenerating = false;
-                sendBtn.disabled = false;
-                stopBtn.disabled = true;
-                sendBtn.innerHTML = "↑";
+            function stopGeneration() {
+                if (currentAbortController && isGenerating) currentAbortController.abort();
             }
-        }
 
-        function stopGeneration() {
-            if(currentAbortController && isGenerating) currentAbortController.abort();
-        }
-
-        async function saveChatToServer() {
-            if(!currentChatId || chats[currentChatId].messages.length === 0) {
-                showError("Nenhuma mensagem para salvar.");
-                return;
-            }
-            const chat = chats[currentChatId];
-            const chatData = { history: chat.messages, savedAt: new Date().toISOString(), model: modelSelector.value, title: chat.title };
-            try {
-                const res = await fetch(SAVE_CHAT_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(chatData) });
-                const result = await res.json();
-                if(res.ok) statusSpan.innerText = `💾 Salvo: ${result.file}`;
-                else showError(`Erro: ${result.error}`);
-            } catch(err) { showError(`Falha: ${err.message}`); }
-        }
-
-        function newChat() { loadChat(createNewChat()); }
-
-        async function loadModels() {
-            try {
-                const res = await fetch(TAGS_URL);
-                const data = await res.json();
-                const models = data.models || [];
-                if(models.length === 0) modelSelector.innerHTML = '<option>Nenhum modelo</option>';
-                else modelSelector.innerHTML = models.map(m => `<option value="${escapeHtml(m.name)}">${escapeHtml(m.name)}</option>`).join("");
-            } catch(e) { modelSelector.innerHTML = '<option>Erro</option>'; }
-        }
-
-        // ---------- Voice Call Logic ----------
-        function initSpeechRecognition() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if(!SpeechRecognition) {
-                alert("Seu navegador não suporta reconhecimento de voz.");
-                return null;
-            }
-            const rec = new SpeechRecognition();
-            rec.lang = callLanguage;
-            rec.continuous = false;
-            rec.interimResults = true;
-
-            rec.onstart = () => {
-                callStatus.innerText = "Ouvindo...";
-                callVisualizer.classList.add('listening');
-                callVisualizer.classList.remove('speaking');
-            };
-
-            rec.onresult = (event) => {
-                let interimTranscript = '';
-                let finalTranscript = '';
-                for (let i = event.resultIndex; i < event.results.length; ++i) {
-                    if (event.results[i].isFinal) finalTranscript += event.results[i][0].transcript;
-                    else interimTranscript += event.results[i][0].transcript;
+            async function saveChatToServer() {
+                if (!currentChatId || chats[currentChatId].messages.length === 0) {
+                    showError("Nenhuma mensagem para salvar.");
+                    return;
                 }
-                callTranscription.innerText = finalTranscript || interimTranscript;
-            };
+                const chat = chats[currentChatId];
+                const chatData = { history: chat.messages, savedAt: new Date().toISOString(), model: modelSelector.value, title: chat.title };
+                try {
+                    const res = await fetch(SAVE_CHAT_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(chatData) });
+                    const result = await res.json();
+                    if (res.ok) statusSpan.innerText = `💾 Salvo: ${result.file}`;
+                    else showError(`Erro: ${result.error}`);
+                } catch (err) { showError(`Falha: ${err.message}`); }
+            }
 
-            rec.onend = async () => {
-                if(!isCallActive || isMuted) return;
-                const text = callTranscription.innerText.trim();
-                if(text) {
-                    await handleVoiceInput(text);
-                } else {
-                    // Se não ouviu nada, volta a ouvir após um pequeno delay
-                    setTimeout(() => { if(isCallActive && !isMuted && !synthesis.speaking) try { rec.start(); } catch(e){} }, 400);
+            function newChat() { loadChat(createNewChat()); }
+
+            async function loadModels() {
+                try {
+                    const res = await fetch(TAGS_URL);
+                    const data = await res.json();
+                    const models = data.models || [];
+                    if (models.length === 0) modelSelector.innerHTML = '<option>Nenhum modelo</option>';
+                    else modelSelector.innerHTML = models.map(m => `<option value="${escapeHtml(m.name)}">${escapeHtml(m.name)}</option>`).join("");
+                } catch (e) { modelSelector.innerHTML = '<option>Erro</option>'; }
+            }
+
+            // ---------- Voice Call Logic (CORRIGIDA) ----------
+            function ensureVoicesLoaded() {
+                return new Promise((resolve) => {
+                    if (synthesis.getVoices().length) {
+                        resolve(synthesis.getVoices());
+                    } else {
+                        synthesis.onvoiceschanged = () => resolve(synthesis.getVoices());
+                    }
+                });
+            }
+
+            function initSpeechRecognition() {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                if (!SpeechRecognition) {
+                    alert("Seu navegador não suporta reconhecimento de voz.");
+                    return null;
                 }
-            };
+                const rec = new SpeechRecognition();
+                rec.lang = callLanguage;
+                rec.continuous = false;
+                rec.interimResults = true;
 
-            rec.onerror = (event) => {
-                console.error("Speech error", event.error);
-                if(isCallActive) setTimeout(() => { try { rec.start(); } catch(e){} }, 1000);
-            };
+                rec.onstart = () => {
+                    callStatus.innerText = "Ouvindo...";
+                    callVisualizer.classList.add('listening');
+                    callVisualizer.classList.remove('speaking');
+                };
 
-            return rec;
-        }
+                rec.onresult = (event) => {
+                    let interimTranscript = '';
+                    let finalTranscript = '';
+                    for (let i = event.resultIndex; i < event.results.length; ++i) {
+                        if (event.results[i].isFinal) finalTranscript += event.results[i][0].transcript;
+                        else interimTranscript += event.results[i][0].transcript;
+                    }
+                    callTranscription.innerText = finalTranscript || interimTranscript;
+                };
 
-        async function handleVoiceInput(text) {
-            callStatus.innerText = "Processando...";
-            callVisualizer.classList.remove('listening');
-            
-            // Adiciona ao chat (silenciosamente ou não)
-            addMessageToCurrentChat('user', text);
-            
-            const selectedModel = modelSelector.value;
-            const chat = chats[currentChatId];
-            const historyMessages = chat.messages.slice(0, -1);
-            const fullPrompt = buildFullPromptWithHistory(text, historyMessages);
+                rec.onend = async () => {
+                    if (!isCallActive || isMuted) return;
+                    const text = callTranscription.innerText.trim();
+                    if (text) {
+                        await handleVoiceInput(text);
+                    } else {
+                        setTimeout(() => { if (isCallActive && !isMuted && !synthesis.speaking) try { recognition.start(); } catch (e) { } }, 400);
+                    }
+                };
 
-            try {
-                const response = await sendStreamingRequest(selectedModel, fullPrompt);
-                updateLastAssistantMessage(response);
-                speak(response);
-            } catch(err) {
-                console.error(err);
-                callStatus.innerText = "Erro na resposta.";
-                if(isCallActive) setTimeout(() => recognition.start(), 2000);
-            }
-        }
+                rec.onerror = (event) => {
+                    console.error("Speech error", event.error);
+                    if (isCallActive) setTimeout(() => { try { recognition.start(); } catch (e) { } }, 1000);
+                };
 
-        function speak(text) {
-            if(!isCallActive) return;
-            
-            // Remove markdown e caracteres especiais para uma leitura melhor
-            const cleanText = text.replace(/```[\s\S]*?```/g, 'Código.')
-                                 .replace(/[*_#]/g, '')
-                                 .trim();
-
-            const utterance = new SpeechSynthesisUtterance(cleanText);
-            
-            if (selectedVoice) {
-                utterance.voice = selectedVoice;
-            } else {
-                utterance.lang = callLanguage;
+                return rec;
             }
 
-            utterance.rate = 0.95; // Ligeiramente mais lento soa mais natural
-            utterance.pitch = 1.0;
-
-            utterance.onstart = () => {
-                callStatus.innerText = "Assistente falando...";
-                callVisualizer.classList.add('speaking');
+            async function handleVoiceInput(text) {
+                if (!text) return;
+                callStatus.innerText = "Processando...";
                 callVisualizer.classList.remove('listening');
-            };
 
-            utterance.onend = () => {
-                if(isCallActive && !isMuted) {
-                    callTranscription.innerText = "";
-                    try { recognition.start(); } catch(e){}
+                addMessageToCurrentChat('user', text);
+
+                const selectedModel = modelSelector.value;
+                const fullPrompt = buildFullPromptWithHistory(text);
+
+                try {
+                    // Cria um placeholder para stream na chamada (opcional, mas não mostra na interface principal)
+                    const response = await sendStreamingRequest(selectedModel, fullPrompt);
+                    updateLastAssistantMessage(response);
+                    speak(response);
+                } catch (err) {
+                    console.error(err);
+                    callStatus.innerText = "Erro na resposta.";
+                    if (isCallActive) setTimeout(() => recognition.start(), 2000);
                 }
-            };
-
-            synthesis.speak(utterance);
-        }
-
-        function startCall() {
-            isCallActive = true;
-            callOverlay.classList.add('active');
-            callTranscription.innerText = "";
-            recognition = initSpeechRecognition();
-            if(recognition) recognition.start();
-        }
-
-        function endCall() {
-            isCallActive = false;
-            if(recognition) {
-                try { recognition.stop(); } catch(e){}
-                recognition = null;
-            }
-            synthesis.cancel();
-            callOverlay.classList.remove('active');
-        }
-
-        // ---------- Voice Management ----------
-        function updateVoices() {
-            voices = synthesis.getVoices();
-            voiceSelector.innerHTML = "";
-            
-            // Filtra vozes em português ou do Google (que costumam ser melhores)
-            const ptVoices = voices.filter(v => v.lang.includes('pt') || v.lang.includes('PT'));
-            
-            if (ptVoices.length === 0) {
-                const opt = document.createElement('option');
-                opt.textContent = "Nenhuma voz PT encontrada";
-                voiceSelector.appendChild(opt);
-                return;
             }
 
-            ptVoices.forEach(voice => {
-                const option = document.createElement('option');
-                option.textContent = `${voice.name} (${voice.lang})`;
-                option.value = voice.name;
-                voiceSelector.appendChild(option);
+            function speak(text) {
+                if (!isCallActive) return;
+
+                const cleanText = text.replace(/```[\s\S]*?```/g, 'Código.')
+                    .replace(/[*_#]/g, '')
+                    .trim();
+
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+
+                if (selectedVoice) {
+                    utterance.voice = selectedVoice;
+                } else {
+                    utterance.lang = callLanguage;
+                }
+
+                utterance.rate = 0.95;
+                utterance.pitch = 1.0;
+
+                utterance.onstart = () => {
+                    callStatus.innerText = "Assistente falando...";
+                    callVisualizer.classList.add('speaking');
+                    callVisualizer.classList.remove('listening');
+                };
+
+                utterance.onend = () => {
+                    if (isCallActive && !isMuted) {
+                        callTranscription.innerText = "";
+                        try { recognition.start(); } catch (e) { }
+                    }
+                };
+
+                synthesis.speak(utterance);
+            }
+
+            async function startCall() {
+                await ensureVoicesLoaded();
+                updateVoices(); // preenche o seletor
+                isCallActive = true;
+                callOverlay.classList.add('active');
+                callTranscription.innerText = "";
+                recognition = initSpeechRecognition();
+                if (recognition) recognition.start();
+            }
+
+            function endCall() {
+                isCallActive = false;
+                if (recognition) {
+                    try { recognition.stop(); } catch (e) { }
+                    recognition = null;
+                }
+                synthesis.cancel();
+                callOverlay.classList.remove('active');
+            }
+
+            // ---------- Voice Management ----------
+            function updateVoices() {
+                voices = synthesis.getVoices();
+                voiceSelector.innerHTML = "";
+
+                const ptVoices = voices.filter(v => v.lang.includes('pt') || v.lang.includes('PT'));
+
+                if (ptVoices.length === 0) {
+                    const opt = document.createElement('option');
+                    opt.textContent = "Nenhuma voz PT encontrada";
+                    voiceSelector.appendChild(opt);
+                    return;
+                }
+
+                ptVoices.forEach(voice => {
+                    const option = document.createElement('option');
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    option.value = voice.name;
+                    voiceSelector.appendChild(option);
+                });
+
+                const googlePt = ptVoices.find(v => v.name.includes('Google') && v.lang.includes('pt-BR'));
+                const defaultVoice = googlePt || ptVoices[0];
+
+                if (defaultVoice) {
+                    voiceSelector.value = defaultVoice.name;
+                    selectedVoice = defaultVoice;
+                }
+            }
+
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = updateVoices;
+            }
+
+            voiceSelector.addEventListener('change', () => {
+                selectedVoice = voices.find(v => v.name === voiceSelector.value);
             });
 
-            // Tenta selecionar uma voz do Google por padrão (costumam ser as melhores no Chrome)
-            const googlePt = ptVoices.find(v => v.name.includes('Google') && v.lang.includes('pt-BR'));
-            const defaultVoice = googlePt || ptVoices[0];
-            
-            if (defaultVoice) {
-                voiceSelector.value = defaultVoice.name;
-                selectedVoice = defaultVoice;
+            let isMuted = false;
+            function toggleMute() {
+                isMuted = !isMuted;
+                const muteBtn = document.getElementById("muteCallBtn");
+                if (isMuted) {
+                    muteBtn.style.background = "#ff3b30";
+                    if (recognition) try { recognition.stop(); } catch (e) { }
+                    callStatus.innerText = "Microfone mudo";
+                } else {
+                    muteBtn.style.background = "rgba(255,255,255,0.1)";
+                    if (isCallActive && !synthesis.speaking) recognition.start();
+                    callStatus.innerText = "Ouvindo...";
+                }
             }
-        }
 
-        // O evento voiceschanged é necessário porque as vozes são carregadas de forma assíncrona
-        if (speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = updateVoices;
-        }
+            // Inicialização
+            loadChatsFromStorage();
+            if (Object.keys(chats).length === 0) loadChat(createNewChat());
+            else loadChat(Object.keys(chats)[0]);
+            loadModels();
+            fetchContext();
 
-        voiceSelector.addEventListener('change', () => {
-            selectedVoice = voices.find(v => v.name === voiceSelector.value);
-        });
-
-        let isMuted = false;
-        function toggleMute() {
-            isMuted = !isMuted;
-            const muteBtn = document.getElementById("muteCallBtn");
-            if(isMuted) {
-                muteBtn.style.background = "#ff3b30";
-                if(recognition) try { recognition.stop(); } catch(e){}
-                callStatus.innerText = "Microfone mudo";
-            } else {
-                muteBtn.style.background = "rgba(255,255,255,0.1)";
-                if(isCallActive && !synthesis.speaking) recognition.start();
-                callStatus.innerText = "Ouvindo...";
-            }
-        }
-
-        // Modificar o onend do recognition para respeitar o mute
-        // (Já está implícito pois se não dermos start() ele para)
-
-        // Inicialização
-        loadChatsFromStorage();
-        if(Object.keys(chats).length === 0) loadChat(createNewChat());
-        else loadChat(Object.keys(chats)[0]);
-        loadModels();
-        fetchContext();
-
-        sendBtn.addEventListener("click", sendPrompt);
-        stopBtn.addEventListener("click", stopGeneration);
-        newChatBtn.addEventListener("click", newChat);
-        saveChatBtn.addEventListener("click", saveChatToServer);
-        startCallBtn.addEventListener("click", startCall);
-        endCallBtn.addEventListener("click", endCall);
-        document.getElementById("muteCallBtn").addEventListener("click", toggleMute);
-        promptEl.addEventListener("keydown", (e) => { if(e.key === "Enter" && !e.shiftKey && !isGenerating) { e.preventDefault(); sendPrompt(); } });
-    })();
-</script>
+            sendBtn.addEventListener("click", sendPrompt);
+            stopBtn.addEventListener("click", stopGeneration);
+            newChatBtn.addEventListener("click", newChat);
+            saveChatBtn.addEventListener("click", saveChatToServer);
+            startCallBtn.addEventListener("click", startCall);
+            endCallBtn.addEventListener("click", endCall);
+            document.getElementById("muteCallBtn").addEventListener("click", toggleMute);
+            promptEl.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey && !isGenerating) { e.preventDefault(); sendPrompt(); } });
+        })();
+    </script>
 </body>
+
 </html>
